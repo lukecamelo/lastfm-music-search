@@ -37,10 +37,9 @@ class App extends Component {
             isLoaded: true,
             error
           });
+          console.log(Response.ok);
         }
       )
-      console.log(this.result);
-      console.log(this.state.artistResult);
   }
 
   render() {
@@ -55,21 +54,23 @@ class App extends Component {
       return <div>Loading...</div>
     }
      
+    else if (this.state.artistResult.artist === undefined) {
+      return (
+        <div>
+          <form action="" onSubmit={(e) => {e.preventDefault(); this.artistSearch()}} className='searchBar'>
+            <input type="text" value={this.state.query} onChange={(e) => this.setState({ query: e.target.value })} />
+          </form>
+          <h1>sorry, nothing to see here!</h1>
+        </div>
+      )
+    }
     else {
       return (
         <div>
           <form action="" onSubmit={(e) => {e.preventDefault(); this.artistSearch()}} className='searchBar'>
             <input type="text" value={this.state.query} onChange={(e) => this.setState({ query: e.target.value })} />
           </form>
-          {/* <ul>
-            {artistResult.map(album => (
-              <li key={album.name}>
-                <img src={`${album.image[3]['#text']}`} alt='album'/> <br/>
-                {album.playcount} <br/>
-                {album.artist.name} <br/>
-              </li>
-            ))}
-          </ul> */}
+          
           <ArtistDescription 
           artist={this.state.artistResult.artist.name}
           summary={this.state.artistResult.artist.bio.summary}
