@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ArtistDescription from './components/ArtistDescription';
 import './App.css';
 
 class App extends Component {
@@ -7,10 +8,10 @@ class App extends Component {
 
     this.state = {
       query: 'prince',
-      // apiCall: 'http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=prince&api_key=94815164058d345ac89d834b6c7c69c2&format=json',
+      key: '94815164058d345ac89d834b6c7c69c2',
       error: null,
       isLoaded: false,
-      artistAlbums: []
+      artistResult: []
     }
   }
 
@@ -19,13 +20,13 @@ class App extends Component {
   }
 
   artistSearch = () => {
-    fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${this.state.query}&limit=10&api_key=94815164058d345ac89d834b6c7c69c2&format=json`)
+    fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.getInfo&artist=${this.state.query}&limit=1&api_key=${this.state.key}&format=json`)
       .then(res => res.json())
       .then(
         (result) => {
           this.setState({
             isLoaded: true,
-            artistAlbums: result.topalbums.album
+            artistResult: result
           });
         },
         (error) => {
@@ -35,20 +36,13 @@ class App extends Component {
           });
         }
       )
+      console.log(this.result);
+      console.log(this.state.artistResult);
   }
-
-  // artistSearch(event) {
-  //   event.preventDefault();
-  //   // const query = this.searchQuery.value;
-  //   this.setState({
-  //     apiCall: `http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${this.state.query}&api_key=94815164058d345ac89d834b6c7c69c2&format=json`
-  //   });
-  //   console.log(this.state.query);
-  // }
 
   render() {
 
-    const {isLoaded, artistAlbums, error} = this.state;
+    const {isLoaded, artistResult, error} = this.state;
 
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -64,23 +58,22 @@ class App extends Component {
           <form action="" onSubmit={(e) => {e.preventDefault(); this.artistSearch()}}>
             <input type="text" value={this.state.query} onChange={(e) => this.setState({ query: e.target.value })} />
           </form>
-          <ul>
-            {artistAlbums.map(album => (
+          {/* <ul>
+            {artistResult.map(album => (
               <li key={album.name}>
-                <img src={`${album.image[2]['#text']}`} alt='album'/> <br/>
+                <img src={`${album.image[3]['#text']}`} alt='album'/> <br/>
                 {album.playcount} <br/>
                 {album.artist.name} <br/>
               </li>
             ))}
-          </ul>
+          </ul> */}
+          <ArtistDescription 
+          artist={this.state.artistResult.artist.name}
+          summary={this.state.artistResult.artist.bio.summary}
+          image={this.state.artistResult.artist.image[4]['#text']}/>
         </div>
       );
     }
-    // return (
-    //   <div className="App">
-    //     <h1>Lastfm Music Search!</h1>
-    //   </div>
-    // );
   }
 }
 
