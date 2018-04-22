@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ArtistDescription from './components/ArtistDescription';
+
+import Fade from 'react-reveal';
 import './App.css';
 
 class App extends Component {
@@ -8,10 +10,11 @@ class App extends Component {
 
     this.state = {
       query: 'prince',
+      method: 'getInfo',
       key: '94815164058d345ac89d834b6c7c69c2',
       error: null,
       isLoaded: false,
-      artistResult: []
+      artistResult: {}
     }
   }
 
@@ -20,7 +23,7 @@ class App extends Component {
   }
 
   artistSearch = () => {
-    fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.getInfo&artist=${this.state.query}&limit=1&api_key=${this.state.key}&format=json`)
+    fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.${this.state.method}&artist=${this.state.query}&limit=1&api_key=${this.state.key}&format=json`)
       .then(res => res.json())
       .then(
         (result) => {
@@ -55,7 +58,7 @@ class App extends Component {
     else {
       return (
         <div>
-          <form action="" onSubmit={(e) => {e.preventDefault(); this.artistSearch()}}>
+          <form action="" onSubmit={(e) => {e.preventDefault(); this.artistSearch()}} className='searchBar'>
             <input type="text" value={this.state.query} onChange={(e) => this.setState({ query: e.target.value })} />
           </form>
           {/* <ul>
