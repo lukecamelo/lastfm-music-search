@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ArtistDescription from './components/ArtistDescription';
 import NotFound from './components/NotFound';
+import SearchBar from './components/SearchBar';
 
 import './App.css';
 
@@ -14,7 +15,8 @@ class App extends Component {
       key: '94815164058d345ac89d834b6c7c69c2',
       error: null,
       isLoaded: false,
-      artistResult: {}
+      artistResult: {},
+      artistAlbums: {}
     }
   }
 
@@ -42,6 +44,19 @@ class App extends Component {
       )
   }
 
+  // getAlbums = () => {
+  //   fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${this.state.query}&limit=1&api_key=${this.state.key}&format=json&limit=3`)
+  //     .then(res => res.json())
+  //     .then(
+  //       result => {
+  //         this.setState({
+  //           artistAlbums: result
+  //         })
+  //       }
+  //     )
+  //     console.log(this.state.artistAlbums.topalbums.album[0].image[3]['#text'])
+  // }
+
   render() {
 
     const {isLoaded, artistResult, error} = this.state;
@@ -57,9 +72,10 @@ class App extends Component {
     else if (this.state.artistResult.artist === undefined) {
       return (
         <div>
-          <form action="" onSubmit={(e) => {e.preventDefault(); this.artistSearch()}} className='searchBar'>
-            <input type="text" value={this.state.query} onChange={(e) => this.setState({ query: e.target.value })} />
-          </form>
+        <SearchBar 
+          query={this.state.query}
+          change={(e) => this.setState({ query: e.target.value })}
+          submit={(e) => {e.preventDefault(); this.artistSearch()}}/>
           <NotFound/>
         </div>
       )
@@ -67,9 +83,10 @@ class App extends Component {
     else {
       return (
         <div>
-          <form action="" onSubmit={(e) => {e.preventDefault(); this.artistSearch()}} className='searchBar'>
-            <input type="text" value={this.state.query} onChange={(e) => this.setState({ query: e.target.value })} />
-          </form>
+          <SearchBar 
+          query={this.state.query}
+          change={(e) => this.setState({ query: e.target.value })}
+          submit={(e) => {e.preventDefault(); this.artistSearch()}}/>
           <ArtistDescription 
           artist={this.state.artistResult.artist.name}
           summary={this.state.artistResult.artist.bio.summary}
