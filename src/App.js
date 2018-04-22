@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ArtistDescription from './components/ArtistDescription';
+import NotFound from './components/NotFound';
 
-import Fade from 'react-reveal';
 import './App.css';
 
 class App extends Component {
@@ -60,7 +60,7 @@ class App extends Component {
           <form action="" onSubmit={(e) => {e.preventDefault(); this.artistSearch()}} className='searchBar'>
             <input type="text" value={this.state.query} onChange={(e) => this.setState({ query: e.target.value })} />
           </form>
-          <h1>sorry, nothing to see here!</h1>
+          <NotFound/>
         </div>
       )
     }
@@ -70,7 +70,6 @@ class App extends Component {
           <form action="" onSubmit={(e) => {e.preventDefault(); this.artistSearch()}} className='searchBar'>
             <input type="text" value={this.state.query} onChange={(e) => this.setState({ query: e.target.value })} />
           </form>
-          
           <ArtistDescription 
           artist={this.state.artistResult.artist.name}
           summary={this.state.artistResult.artist.bio.summary}
