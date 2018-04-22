@@ -5,10 +5,9 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.searchQuery = React.createRef();
-
     this.state = {
-      apiCall: 'http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=prince&api_key=94815164058d345ac89d834b6c7c69c2&format=json',
+      query: 'prince',
+      // apiCall: 'http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=prince&api_key=94815164058d345ac89d834b6c7c69c2&format=json',
       error: null,
       isLoaded: false,
       artistAlbums: []
@@ -16,7 +15,11 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch(this.state.apiCall)
+    this.artistSearch();
+  }
+
+  artistSearch = () => {
+    fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${this.state.query}&limit=10&api_key=94815164058d345ac89d834b6c7c69c2&format=json`)
       .then(res => res.json())
       .then(
         (result) => {
@@ -34,14 +37,14 @@ class App extends Component {
       )
   }
 
-  artistSearch(event) {
-    event.preventDefault();
-    console.log('you searched!');
-    const query = this.searchQuery.value;
-    this.setState({
-      apiCall: `http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${query}&api_key=94815164058d345ac89d834b6c7c69c2&format=json`
-    });
-  }
+  // artistSearch(event) {
+  //   event.preventDefault();
+  //   // const query = this.searchQuery.value;
+  //   this.setState({
+  //     apiCall: `http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${this.state.query}&api_key=94815164058d345ac89d834b6c7c69c2&format=json`
+  //   });
+  //   console.log(this.state.query);
+  // }
 
   render() {
 
@@ -58,8 +61,8 @@ class App extends Component {
     else {
       return (
         <div>
-          <form action="" onSubmit={(e) => this.artistSearch(e)}>
-            <input type="text" ref={this.searchQuery} />
+          <form action="" onSubmit={(e) => {e.preventDefault(); this.artistSearch()}}>
+            <input type="text" value={this.state.query} onChange={(e) => this.setState({ query: e.target.value })} />
           </form>
           <ul>
             {artistAlbums.map(album => (
