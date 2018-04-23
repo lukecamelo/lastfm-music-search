@@ -10,7 +10,7 @@ class ArtistDescription extends React.Component {
       <div className='artistContainer'>
         <h1 className='header'>{this.props.artist}</h1>
         <img className='artistImg' src={`${this.props.image}`} alt='artist'/>
-        <p className='description'>{this.props.summary}</p>
+        <p className='description'>{this.props.summary.replace(/<.+>$/, '')}</p>
       </div>
     );
   }

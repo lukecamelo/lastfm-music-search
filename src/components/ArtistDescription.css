@@ -6,9 +6,14 @@
   box-shadow: 0 2px 4px rgb(104, 109, 126)
 }
 
+/* .artistImg {
+
+} */
+
 .header {
   color: #323643;
   font-weight: 700;
+  padding-top: 2rem;
 }
 
 .description {
