@@ -54,12 +54,12 @@ class App extends Component {
   //         })
   //       }
   //     )
-  //     console.log(this.state.artistAlbums.topalbums.album[0].image[3]['#text'])
+  //     console.log(this.state.artistAlbums)
   // }
 
   render() {
 
-    const {isLoaded, artistResult, error} = this.state;
+    const {isLoaded, error} = this.state;
 
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -83,14 +83,17 @@ class App extends Component {
     else {
       return (
         <div>
+
           <SearchBar 
           query={this.state.query}
           change={(e) => this.setState({ query: e.target.value })}
           submit={(e) => {e.preventDefault(); this.artistSearch()}}/>
+
           <ArtistDescription 
           artist={this.state.artistResult.artist.name}
           summary={this.state.artistResult.artist.bio.summary}
           image={this.state.artistResult.artist.image[4]['#text']}/>
+
         </div>
       );
     }

@@ -1,4 +1,5 @@
 import React from 'react';
+import './SearchBar.css';
 
 const SearchBar = (props) => {
   return (
@@ -8,7 +9,8 @@ const SearchBar = (props) => {
         <input type="text" 
         value={props.query} 
         onChange={props.change} 
-        placeholder='Artist search' />
+        placeholder='Artist search'
+        className='searchInput' />
         
       </form>
     </div>

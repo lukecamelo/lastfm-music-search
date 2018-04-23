@@ -8,9 +8,9 @@ class ArtistDescription extends React.Component {
   render() {
     return(
       <div className='artistContainer'>
-        <h1>{this.props.artist}</h1>
-        <img src={`${this.props.image}`} alt='artist'/>
-        <p>{this.props.summary}</p>
+        <h1 className='header'>{this.props.artist}</h1>
+        <img className='artistImg' src={`${this.props.image}`} alt='artist'/>
+        <p className='description'>{this.props.summary}</p>
       </div>
     );
   }

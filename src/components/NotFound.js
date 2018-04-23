@@ -6,7 +6,7 @@ const NotFound = () => {
   return(
     <div className='message'>
       <Fade cascade>
-      <h1>Nothing to see here!</h1>
+      <h1>Oops! you did a uh-oh. Try again.</h1>
       </Fade>
     </div>
   )

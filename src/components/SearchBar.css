@@ -1,0 +1,14 @@
+.searchInput {
+  border-style: none;
+  background: transparent;
+  margin-top: 5rem;
+  padding-left: 10px;
+  outline: none;
+  background: rgba(57, 63, 84, 0.8);
+  color: #BFD2FF;
+  border-radius: 2px;
+  width: 30vw;
+  height: 3rem;
+  font-size: 2rem;
+  max-width: 400px;
+}
