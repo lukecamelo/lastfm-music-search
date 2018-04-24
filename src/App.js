@@ -25,13 +25,13 @@ class App extends Component {
   }
 
   artistSearch = () => {
-    fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.${this.state.method}&artist=${this.state.query}&limit=1&api_key=${this.state.key}&format=json`)
-      .then(res => res.json())
+      fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.${this.state.method}&artist=${this.state.query}&limit=1&api_key=${this.state.key}&format=json`)
+      .then(result => result.json())
       .then(
         (result) => {
           this.setState({
             isLoaded: true,
-            artistResult: result
+            artistResult: result,
           });
         },
         (error) => {
@@ -44,18 +44,18 @@ class App extends Component {
       )
   }
 
-  // getAlbums = () => {
-  //   fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${this.state.query}&limit=1&api_key=${this.state.key}&format=json&limit=3`)
-  //     .then(res => res.json())
-  //     .then(
-  //       result => {
-  //         this.setState({
-  //           artistAlbums: result
-  //         })
-  //       }
-  //     )
-  //     console.log(this.state.artistAlbums)
-  // }
+  getAlbums = () => {
+    fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${this.state.query}&limit=1&api_key=${this.state.key}&format=json&limit=3`)
+      .then(res => res.json())
+      .then(
+        result => {
+          this.setState({
+            artistAlbums: result
+          })
+        }
+      )
+      console.log(this.state.artistAlbums)
+  }
 
   render() {
 
@@ -88,6 +88,8 @@ class App extends Component {
           query={this.state.query}
           change={(e) => this.setState({ query: e.target.value })}
           submit={(e) => {e.preventDefault(); this.artistSearch()}}/>
+
+          <button onClick={() => this.getAlbums()}>Get albums!</button>
 
           <ArtistDescription 
           artist={this.state.artistResult.artist.name}
