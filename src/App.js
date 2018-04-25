@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ArtistDescription from './components/ArtistDescription';
 import NotFound from './components/NotFound';
 import SearchBar from './components/SearchBar';
+import TopAlbums from './components/TopAlbums';
 
 import './App.css';
 
@@ -15,6 +16,7 @@ class App extends Component {
       key: '94815164058d345ac89d834b6c7c69c2',
       error: null,
       isLoaded: false,
+      showAlbums: false,
       artistResult: {},
       artistAlbums: {}
     }
@@ -22,6 +24,7 @@ class App extends Component {
 
   componentDidMount() {
     this.artistSearch();
+    // this.getAlbums();
   }
 
   artistSearch = () => {
@@ -30,7 +33,7 @@ class App extends Component {
       .then(
         (result) => {
           this.setState({
-            isLoaded: true,
+            isLoaded: true,           
             artistResult: result,
           });
         },
@@ -54,7 +57,20 @@ class App extends Component {
           })
         }
       )
-      console.log(this.state.artistAlbums)
+      console.log(this.state.artistAlbums.topalbums)
+  }
+
+  albumToggle = () => {
+    if (this.state.showAlbums === false) {
+      this.setState({
+        showAlbums: true
+      })
+    }
+    else {
+      this.setState({
+        showAlbums: false
+      })
+    }
   }
 
   render() {
@@ -90,7 +106,9 @@ class App extends Component {
           submit={(e) => {e.preventDefault(); this.artistSearch()}}/>
 
           <button onClick={() => this.getAlbums()}>Get albums!</button>
+          <button onClick={() => this.albumToggle()}>Show albums!</button>
 
+          {(this.state.showAlbums === true) ? <TopAlbums title={this.state.artistAlbums.topalbums.album[0].name}/> : null }
           <ArtistDescription 
           artist={this.state.artistResult.artist.name}
           summary={this.state.artistResult.artist.bio.summary}
