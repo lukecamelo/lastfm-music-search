@@ -7,3 +7,14 @@
   display: flex;
   justify-content: center;
 }
+
+.AlbumButton {
+  display: flex;
+  justify-self: center;
+}
+
+.Loading {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}

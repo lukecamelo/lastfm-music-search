@@ -16,7 +16,7 @@ class App extends Component {
       key: '94815164058d345ac89d834b6c7c69c2',
       error: null,
       isLoaded: false,
-      showAlbums: false,
+      showAlbums: true,
       artistResult: {},
       artistAlbums: {}
     }
@@ -49,7 +49,7 @@ class App extends Component {
   }
 
   getAlbums = () => {
-    fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${this.state.query}&limit=1&api_key=${this.state.key}&format=json&limit=3`)
+    fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${this.state.query}&api_key=${this.state.key}&format=json&limit=3`)
       .then(res => res.json())
       .then(
         result => {
@@ -83,7 +83,7 @@ class App extends Component {
     }
      
     else if (!isLoaded) {
-      return <div>Loading...</div>
+      return <div className='Loading'><h1>Loading...</h1></div>
     }
      
     else if (this.state.artistResult.artist === undefined) {
@@ -106,14 +106,18 @@ class App extends Component {
           change={(e) => this.setState({ query: e.target.value })}
           submit={(e) => {e.preventDefault(); this.artistSearch()}}/>
 
-          <button onClick={() => this.albumToggle()}>Show albums!</button>
-
-          {(this.state.showAlbums === true) ? <TopAlbums title={this.state.artistAlbums.topalbums.album[0].name}/> : null }
+          <button className='AlbumButton' onClick={() => this.albumToggle()}>Show albums!</button>
 
           <ArtistDescription 
           artist={this.state.artistResult.artist.name}
           summary={this.state.artistResult.artist.bio.summary}
           image={this.state.artistResult.artist.image[4]['#text']}/>
+
+          {(this.state.showAlbums === true && this.state.artistAlbums.topalbums !== undefined) ? 
+            <TopAlbums 
+            title={this.state.artistAlbums.topalbums.album[0].name}
+            art={this.state.artistAlbums.topalbums.album[0].image[3]['#text']} /> 
+            : null }
 
         </div>
       );
