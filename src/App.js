@@ -116,7 +116,8 @@ class App extends Component {
           {(this.state.showAlbums === true && this.state.artistAlbums.topalbums !== undefined) ? 
             <TopAlbums 
             title={this.state.artistAlbums.topalbums.album[0].name}
-            art={this.state.artistAlbums.topalbums.album[0].image[3]['#text']} /> 
+            art={this.state.artistAlbums.topalbums.album[0].image[3]['#text']}
+            art2={this.state.artistAlbums.topalbums.album[1].image[3]['#text']} /> 
             : null }
 
         </div>

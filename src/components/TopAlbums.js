@@ -7,6 +7,7 @@ class TopAlbums extends React.Component {
       <div className='AlbumContainer'>
         <h1 className="albumTitle">Most popular album: {this.props.title}</h1>
         <img className='albumImg' src={`${this.props.art}`} alt='album'/>
+        <img className='albumImg' src={`${this.props.art2}`} alt='album'/>
       </div>
     )
   }
