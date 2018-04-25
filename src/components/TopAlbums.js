@@ -5,9 +5,21 @@ class TopAlbums extends React.Component {
   render() {
     return(
       <div className='AlbumContainer'>
-        <h1 className="albumTitle">Most popular album: {this.props.title}</h1>
-        <img className='albumImg' src={`${this.props.art}`} alt='album'/>
-        <img className='albumImg' src={`${this.props.art2}`} alt='album'/>
+        <div className="picholder">
+          <h2>{this.props.title}</h2>
+          <img className='albumImg' src={`${this.props.art}`} alt='album'/>
+        </div>
+
+        <div className="picholder">
+          <h2>{this.props.title2}</h2>
+          <img className='albumImg' src={`${this.props.art2}`} alt='album'/>
+        </div>
+
+        <div className="picholder">
+          <h2>{this.props.title3}</h2>
+          <img className='albumImg' src={`${this.props.art3}`} alt='album'/>
+        </div>
+
       </div>
     )
   }

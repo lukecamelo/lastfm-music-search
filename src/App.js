@@ -76,7 +76,8 @@ class App extends Component {
 
   render() {
 
-    const {isLoaded, error} = this.state;
+    // destructure the state for easier access to the data
+    const {isLoaded, error, artistResult, artistAlbums} = this.state;
 
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -109,16 +110,19 @@ class App extends Component {
           <button className='AlbumButton' onClick={() => this.albumToggle()}>Show albums!</button>
 
           <ArtistDescription 
-          artist={this.state.artistResult.artist.name}
-          summary={this.state.artistResult.artist.bio.summary}
-          image={this.state.artistResult.artist.image[4]['#text']}/>
+          artist={artistResult.artist.name}
+          summary={artistResult.artist.bio.summary}
+          image={artistResult.artist.image[4]['#text']}/>
 
-          {(this.state.showAlbums === true && this.state.artistAlbums.topalbums !== undefined) ? 
+          { (this.state.showAlbums === true && artistAlbums.topalbums !== undefined) ? 
             <TopAlbums 
-            title={this.state.artistAlbums.topalbums.album[0].name}
-            art={this.state.artistAlbums.topalbums.album[0].image[3]['#text']}
-            art2={this.state.artistAlbums.topalbums.album[1].image[3]['#text']} /> 
-            : null }
+            art={artistAlbums.topalbums.album[0].image[3]['#text']}
+            art2={artistAlbums.topalbums.album[1].image[3]['#text']}  
+            art3={artistAlbums.topalbums.album[2].image[3]['#text']}
+            title={artistAlbums.topalbums.album[0].name}  
+            title2={artistAlbums.topalbums.album[1].name}  
+            title3={artistAlbums.topalbums.album[2].name} />
+            : <p>nothing here</p> }
 
         </div>
       );
