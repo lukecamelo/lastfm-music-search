@@ -24,7 +24,7 @@ class App extends Component {
 
   componentDidMount() {
     this.artistSearch();
-    // this.getAlbums();
+    this.getAlbums();
   }
 
   artistSearch = () => {
@@ -45,6 +45,7 @@ class App extends Component {
           console.log(Response.ok);
         }
       )
+      .then(this.getAlbums)
   }
 
   getAlbums = () => {
@@ -105,10 +106,10 @@ class App extends Component {
           change={(e) => this.setState({ query: e.target.value })}
           submit={(e) => {e.preventDefault(); this.artistSearch()}}/>
 
-          <button onClick={() => this.getAlbums()}>Get albums!</button>
           <button onClick={() => this.albumToggle()}>Show albums!</button>
 
           {(this.state.showAlbums === true) ? <TopAlbums title={this.state.artistAlbums.topalbums.album[0].name}/> : null }
+
           <ArtistDescription 
           artist={this.state.artistResult.artist.name}
           summary={this.state.artistResult.artist.bio.summary}
