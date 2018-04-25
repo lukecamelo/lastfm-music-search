@@ -14,3 +14,9 @@
   font-size: 2rem;
   max-width: 400px;
 }
+
+.albumButton {
+  height: 3rem;
+  font-size: 1.5rem;
+  margin-top: 5rem;
+}

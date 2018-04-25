@@ -11,6 +11,8 @@ const SearchBar = (props) => {
         onChange={props.change} 
         placeholder='Artist search'
         className='searchInput' />
+
+        <button className='albumButton' onClick={props.click}>Show albums!</button>
         
       </form>
     </div>

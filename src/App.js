@@ -105,9 +105,8 @@ class App extends Component {
           <SearchBar 
           query={this.state.query}
           change={(e) => this.setState({ query: e.target.value })}
-          submit={(e) => {e.preventDefault(); this.artistSearch()}}/>
-
-          <button className='AlbumButton' onClick={() => this.albumToggle()}>Show albums!</button>
+          submit={(e) => {e.preventDefault(); this.artistSearch()}}
+          click={() => this.albumToggle()} />
 
           <ArtistDescription 
           artist={artistResult.artist.name}
@@ -119,6 +118,9 @@ class App extends Component {
             art={artistAlbums.topalbums.album[0].image[3]['#text']}
             art2={artistAlbums.topalbums.album[1].image[3]['#text']}  
             art3={artistAlbums.topalbums.album[2].image[3]['#text']}
+            playcount={artistAlbums.topalbums.album[0].playcount}
+            playcount2={artistAlbums.topalbums.album[1].playcount}
+            playcount3={artistAlbums.topalbums.album[2].playcount}
             title={artistAlbums.topalbums.album[0].name}  
             title2={artistAlbums.topalbums.album[1].name}  
             title3={artistAlbums.topalbums.album[2].name} />
