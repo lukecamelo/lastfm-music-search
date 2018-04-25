@@ -124,7 +124,7 @@ class App extends Component {
             title={artistAlbums.topalbums.album[0].name}  
             title2={artistAlbums.topalbums.album[1].name}  
             title3={artistAlbums.topalbums.album[2].name} />
-            : <p>nothing here</p> }
+            : <h1 className='nothing'>Click 'Show Albums'!</h1> }
 
         </div>
       );

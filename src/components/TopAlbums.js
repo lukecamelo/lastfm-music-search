@@ -7,19 +7,19 @@ class TopAlbums extends React.Component {
       <div className='AlbumContainer'>
         <div className="picholder">
           <h2>{this.props.title}</h2>
-          <h3>{String(this.props.playcount).replace(/(.)(?=(\d{3})+$)/g,'$1,')}</h3>
+          <h3>Total plays: {String(this.props.playcount).replace(/(.)(?=(\d{3})+$)/g,'$1,')}</h3>
           <img className='albumImg' src={`${this.props.art}`} alt='album'/>
         </div>
 
         <div className="picholder">
           <h2>{this.props.title2}</h2>
-          <h3>{String(this.props.playcount2).replace(/(.)(?=(\d{3})+$)/g,'$1,')}</h3>
+          <h3>Total plays: {String(this.props.playcount2).replace(/(.)(?=(\d{3})+$)/g,'$1,')}</h3>
           <img className='albumImg' src={`${this.props.art2}`} alt='album'/>
         </div>
 
         <div className="picholder">
           <h2>{this.props.title3}</h2>
-          <h3>{String(this.props.playcount3).replace(/(.)(?=(\d{3})+$)/g,'$1,')}</h3>
+          <h3>Total plays: {String(this.props.playcount3).replace(/(.)(?=(\d{3})+$)/g,'$1,')}</h3>
           <img className='albumImg' src={`${this.props.art3}`} alt='album'/>
         </div>
 
