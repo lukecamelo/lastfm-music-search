@@ -28,7 +28,7 @@ class App extends Component {
   }
 
   artistSearch = () => {
-      fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.${this.state.method}&artist=${this.state.query}&limit=1&api_key=${this.state.key}&format=json`)
+      fetch(`https://ws.audioscrobbler.com/2.0/?method=artist.${this.state.method}&artist=${this.state.query}&limit=1&api_key=${this.state.key}&format=json`)
       .then(result => result.json())
       .then(
         (result) => {
@@ -49,7 +49,7 @@ class App extends Component {
   }
 
   getAlbums = () => {
-    fetch(`http://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${this.state.query}&api_key=${this.state.key}&format=json&limit=3`)
+    fetch(`https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${this.state.query}&api_key=${this.state.key}&format=json&limit=3`)
       .then(res => res.json())
       .then(
         result => {

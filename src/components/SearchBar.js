@@ -5,7 +5,7 @@ const SearchBar = props => {
   return (
     <div className="SearchForm">
       <form action="" onSubmit={props.submit} className="searchBar">
-        <div class="column">
+        <div className="column">
           <input
             type="text"
             value={props.query}
