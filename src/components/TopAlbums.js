@@ -1,31 +1,29 @@
-import React from 'react';
+import React from 'react'
+import Album from './Album'
 import './TopAlbums.css'
 
 class TopAlbums extends React.Component {
   render() {
-    return(
-      <div className='AlbumContainer'>
-        <div className="picholder">
-          <h2>{this.props.title}</h2>
-          <h3>Total plays: {String(this.props.playcount).replace(/(.)(?=(\d{3})+$)/g,'$1,')}</h3>
-          <img className='albumImg' src={`${this.props.art}`} alt='album'/>
-        </div>
+    const { response } = this.props
+    let albums
 
-        <div className="picholder">
-          <h2>{this.props.title2}</h2>
-          <h3>Total plays: {String(this.props.playcount2).replace(/(.)(?=(\d{3})+$)/g,'$1,')}</h3>
-          <img className='albumImg' src={`${this.props.art2}`} alt='album'/>
-        </div>
+    if (response.length > 0) {
+      albums = response.map((obj, i) => {
+        return (
+          <Album 
+          key={i}
+          index={i}
+          response={obj} />
+        )
+      })
+    }
 
-        <div className="picholder">
-          <h2>{this.props.title3}</h2>
-          <h3>Total plays: {String(this.props.playcount3).replace(/(.)(?=(\d{3})+$)/g,'$1,')}</h3>
-          <img className='albumImg' src={`${this.props.art3}`} alt='album'/>
-        </div>
-
+    return (
+      <div className="AlbumContainer">
+        {albums}
       </div>
     )
   }
 }
 
-export default TopAlbums;
+export default TopAlbums

@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import ArtistDescription from './components/ArtistDescription';
-import NotFound from './components/NotFound';
-import SearchBar from './components/SearchBar';
-import TopAlbums from './components/TopAlbums';
+import React, { Component } from 'react'
+import ArtistDescription from './components/ArtistDescription'
+import NotFound from './components/NotFound'
+import SearchBar from './components/SearchBar'
+import TopAlbums from './components/TopAlbums'
 
-import './App.css';
+import './App.css'
 
 class App extends Component {
   constructor(props) {
-    super(props);
+    super(props)
 
     this.state = {
       query: 'prince',
@@ -18,47 +18,55 @@ class App extends Component {
       isLoaded: false,
       showAlbums: true,
       artistResult: {},
-      artistAlbums: {}
+      artistAlbums: []
     }
   }
 
   componentDidMount() {
-    this.artistSearch();
-    this.getAlbums();
+    this.artistSearch()
+    this.getAlbums()
   }
 
   artistSearch = () => {
-      fetch(`https://ws.audioscrobbler.com/2.0/?method=artist.${this.state.method}&artist=${this.state.query}&limit=1&api_key=${this.state.key}&format=json`)
+    fetch(
+      `https://ws.audioscrobbler.com/2.0/?method=artist.${
+        this.state.method
+      }&artist=${this.state.query}&limit=1&api_key=${
+        this.state.key
+      }&format=json`
+    )
       .then(result => result.json())
       .then(
-        (result) => {
+        result => {
           this.setState({
-            isLoaded: true,           
-            artistResult: result,
-          });
+            isLoaded: true,
+            artistResult: result
+          })
         },
-        (error) => {
+        error => {
           this.setState({
             isLoaded: true,
             error
-          });
-          console.log(Response.ok);
+          })
+          console.log(Response.ok)
         }
       )
       .then(this.getAlbums)
   }
 
   getAlbums = () => {
-    fetch(`https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${this.state.query}&api_key=${this.state.key}&format=json&limit=3`)
+    fetch(
+      `https://ws.audioscrobbler.com/2.0/?method=artist.gettopalbums&artist=${
+        this.state.query
+      }&api_key=${this.state.key}&format=json&limit=3`
+    )
       .then(res => res.json())
-      .then(
-        result => {
-          this.setState({
-            artistAlbums: result
-          })
-        }
-      )
-      console.log(this.state.artistAlbums.topalbums)
+      .then(result => {
+        this.setState({
+          artistAlbums: result,
+          isLoaded: true
+        })
+      })
   }
 
   albumToggle = () => {
@@ -66,8 +74,7 @@ class App extends Component {
       this.setState({
         showAlbums: true
       })
-    }
-    else {
+    } else {
       this.setState({
         showAlbums: false
       })
@@ -75,61 +82,63 @@ class App extends Component {
   }
 
   render() {
-
     // destructure the state for easier access to the data
-    const {isLoaded, error, artistResult, artistAlbums} = this.state;
+    const { isLoaded, error, artistResult, artistAlbums } = this.state
 
     if (error) {
-      return <div>Error: {error.message}</div>;
-    }
-     
-    else if (!isLoaded) {
-      return <div className='Loading'><h1>Loading...</h1></div>
-    }
-     
-    else if (this.state.artistResult.artist === undefined) {
+      return <div>Error: {error.message}</div>
+    } else if (!isLoaded) {
       return (
-        <div>
-        <SearchBar 
-          query={this.state.query}
-          change={(e) => this.setState({ query: e.target.value })}
-          submit={(e) => {e.preventDefault(); this.artistSearch()}}/>
-          <NotFound/>
+        <div className="Loading">
+          <h1>Loading...</h1>
         </div>
       )
-    }
-    else {
+    } else if (
+      this.state.artistResult.artist === undefined ||
+      this.state.artistAlbums === undefined
+    ) {
       return (
         <div>
-
-          <SearchBar 
-          query={this.state.query}
-          change={(e) => this.setState({ query: e.target.value })}
-          submit={(e) => {e.preventDefault(); this.artistSearch()}}
-          click={() => this.albumToggle()} />
-
-          <ArtistDescription 
-          artist={artistResult.artist.name}
-          summary={artistResult.artist.bio.summary}
-          image={artistResult.artist.image[4]['#text']}/>
-
-          { (this.state.showAlbums === true && artistAlbums.topalbums !== undefined) ? 
-            <TopAlbums 
-            art={artistAlbums.topalbums.album[0].image[3]['#text']}
-            art2={artistAlbums.topalbums.album[1].image[3]['#text']}  
-            art3={artistAlbums.topalbums.album[2].image[3]['#text']}
-            playcount={artistAlbums.topalbums.album[0].playcount}
-            playcount2={artistAlbums.topalbums.album[1].playcount}
-            playcount3={artistAlbums.topalbums.album[2].playcount}
-            title={artistAlbums.topalbums.album[0].name}  
-            title2={artistAlbums.topalbums.album[1].name}  
-            title3={artistAlbums.topalbums.album[2].name} />
-            : <h1 className='nothing'>Click 'Show Albums'!</h1> }
-
+          <SearchBar
+            query={this.state.query}
+            change={e => this.setState({ query: e.target.value })}
+            submit={e => {
+              e.preventDefault()
+              this.artistSearch()
+            }}
+          />
+          <NotFound />
         </div>
-      );
+      )
+    } else {
+      return (
+        <div>
+          <SearchBar
+            query={this.state.query}
+            change={e => this.setState({ query: e.target.value })}
+            submit={e => {
+              e.preventDefault()
+              this.artistSearch()
+            }}
+            click={() => this.albumToggle()}
+          />
+
+          <ArtistDescription
+            artist={artistResult.artist.name}
+            summary={artistResult.artist.bio.summary}
+            image={artistResult.artist.image[4]['#text']}
+          />
+
+          {this.state.showAlbums === true &&
+          artistAlbums.topalbums !== undefined ? (
+            <TopAlbums response={artistAlbums.topalbums.album} />
+          ) : (
+            <h1 className="nothing">Click 'Show Albums'!</h1>
+          )}
+        </div>
+      )
     }
   }
 }
 
-export default App;
+export default App
