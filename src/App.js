@@ -83,7 +83,7 @@ class App extends Component {
 
   render() {
     // destructure the state for easier access to the data
-    const { isLoaded, error, artistResult, artistAlbums } = this.state
+    const { isLoaded, error, artistResult, artistAlbums, query, showAlbums } = this.state
 
     if (error) {
       return <div>Error: {error.message}</div>
@@ -100,7 +100,7 @@ class App extends Component {
       return (
         <div>
           <SearchBar
-            query={this.state.query}
+            query={query}
             change={e => this.setState({ query: e.target.value })}
             submit={e => {
               e.preventDefault()
@@ -114,7 +114,7 @@ class App extends Component {
       return (
         <div>
           <SearchBar
-            query={this.state.query}
+            query={query}
             change={e => this.setState({ query: e.target.value })}
             submit={e => {
               e.preventDefault()
@@ -129,8 +129,8 @@ class App extends Component {
             image={artistResult.artist.image[4]['#text']}
           />
 
-          {this.state.showAlbums === true &&
-          artistAlbums.topalbums !== undefined ? (
+          {showAlbums &&
+          artistAlbums.topalbums ? (
             <TopAlbums response={artistAlbums.topalbums.album} />
           ) : (
             <h1 className="nothing">Click 'Show Albums'!</h1>

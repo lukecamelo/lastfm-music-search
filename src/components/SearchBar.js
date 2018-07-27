@@ -2,14 +2,15 @@ import React from 'react'
 import './SearchBar.css'
 
 const SearchBar = props => {
+  const { query, change, submit } = props
   return (
     <div className="SearchForm">
-      <form action="" onSubmit={props.submit} className="searchBar">
+      <form action="" onSubmit={submit} className="searchBar">
         <div className="column">
           <input
             type="text"
-            value={props.query}
-            onChange={props.change}
+            value={query}
+            onChange={change}
             placeholder="Artist search"
             className="searchInput"
           />
